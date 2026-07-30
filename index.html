@@ -27,16 +27,17 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     body {
       background-color: #0d0b14;
-      font-family: 'Orbitron', sans-serif; /* Replaced default font with Orbitron */
+      font-family: 'Orbitron', sans-serif;
       min-height: 250vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 2rem;
+      padding-top: 1rem;
       overflow-x: hidden;
       color: #ffffff;
     }
@@ -65,21 +66,24 @@
       pointer-events: none;
     }
 
-    /* --- NAVBAR --- */
+    /* --- ALWAYS VISIBLE STICKY NAVBAR --- */
     .navbar {
+      position: sticky;
+      top: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 90%;
       max-width: 960px;
       padding: 0.75rem 1.25rem;
-      background: rgba(18, 14, 28, 0.2);
+      background: rgba(18, 14, 28, 0.75);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 10;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
       font-family: 'Orbitron', sans-serif;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
     .nav-logo {
@@ -113,7 +117,7 @@
       color: #ffffff;
     }
 
-    /* --- HERO SECTION & GLITCH TEXT (FONT PRESERVED) --- */
+    /* --- HERO SECTION & GLITCH TEXT --- */
     .hero-container {
       width: 100%;
       max-width: 1200px;
@@ -136,7 +140,7 @@
       line-height: 1.1;
       user-select: none;
       margin-bottom: 0.5rem;
-      font-family: 'Orbitron', sans-serif; /* Kept Orbitron bold style for glitch */
+      font-family: 'Orbitron', sans-serif;
     }
 
     .glitch-text::before,
@@ -220,10 +224,10 @@
       font-weight: 500;
     }
 
-    /* --- DESKTOP CAROUSEL SIZE --- */
+    /* --- CAROUSEL STYLING --- */
     .stack-wrapper {
-      width: 500px;
-      height: 580px;
+      width: 520px;
+      height: 600px;
       margin-top: 1rem;
       margin-bottom: 3.5rem;
       display: flex;
@@ -272,11 +276,12 @@
       background-size: 100% 100%, 100% 28px;
       border-radius: 4px;
       position: relative;
-      padding: 2.2rem 2.2rem 2.2rem 4rem;
+      padding: 2.2rem 2rem 2.2rem 3.8rem;
       color: #4a1515;
       text-align: left;
       box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif; /* Orbitron applied */
+      font-family: 'Orbitron', sans-serif;
+      overflow-y: auto;
       
       clip-path: polygon(
         0% 2%, 3% 0%, 97% 1%, 100% 3%, 
@@ -308,11 +313,11 @@
 
     .paper-title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 900;
       color: #5c0f0f;
       text-align: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       border-bottom: 2px solid #5c0f0f;
@@ -320,8 +325,8 @@
     }
 
     .paper-body {
-      font-size: 0.85rem;
-      line-height: 1.6;
+      font-size: 0.78rem;
+      line-height: 1.55;
       color: #2b1212;
       font-weight: 500;
       font-family: 'Orbitron', sans-serif;
@@ -329,18 +334,20 @@
 
     .paper-subtitle {
       font-weight: 700;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
+      margin-top: 0.8rem;
+      margin-bottom: 0.4rem;
       color: #5c0f0f;
+      text-transform: uppercase;
+      font-size: 0.82rem;
     }
 
     .paper-list {
       list-style-type: disc;
-      padding-left: 1.2rem;
+      padding-left: 1.1rem;
     }
 
     .paper-list li {
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
     }
 
     /* --- VINTAGE TORN PAPER LOGIN FORM --- */
@@ -364,7 +371,6 @@
       padding: 2.5rem 2.5rem 2.5rem 4rem;
       box-sizing: border-box;
       
-      /* Jagged Torn Edge Clip-Path */
       clip-path: polygon(
         0% 1%, 4% 0%, 96% 2%, 100% 0%, 
         98% 15%, 100% 30%, 97% 48%, 100% 62%, 98% 80%, 100% 97%,
@@ -452,6 +458,47 @@
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     }
 
+    /* --- FOOTER DIVIDER & DETAILS --- */
+    .footer-divider {
+      width: 100%;
+      max-width: 600px;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8C1007, #5c0f0f, #8C1007, transparent);
+      margin: 1.5rem 0 2.5rem 0;
+    }
+
+    .footer-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .footer-item {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .lol-label {
+      color: #8C1007;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-quote {
+      color: #8C1007;
+      font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+      font-weight: 700;
+      margin-top: 0.5rem;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
     /* --- SIDE MENU --- */
     .side-menu {
       position: fixed;
@@ -517,6 +564,7 @@
       transition: all 0.2s ease;
       display: block;
       padding: 0.5rem 0;
+      cursor: pointer;
     }
 
     .side-menu-links a:hover {
@@ -544,18 +592,18 @@
     }
 
     @media (max-width: 600px) {
-      body { padding-top: 1rem; }
-      .navbar { width: 95%; padding: 0.6rem 1rem; }
+      body { padding-top: 0.5rem; }
+      .navbar { width: 95%; padding: 0.6rem 1rem; top: 0.5rem; }
       .hero-container { padding-top: 2rem; }
-      .stack-wrapper { width: 320px; height: 480px; }
+      .stack-wrapper { width: 320px; height: 500px; }
       .notebook-paper, .form-paper { padding: 1.5rem 1.2rem 1.5rem 3rem; }
       .paper-title, .form-title { font-size: 1.1rem; }
-      .paper-body { font-size: 0.75rem; line-height: 1.45; }
+      .paper-body { font-size: 0.72rem; line-height: 1.45; }
       .form-container-card { width: 95%; }
     }
   </style>
 </head>
-<body>
+<body id="top">
 
   <!-- BACKGROUND VIDEO -->
   <video class="bg-video" id="scrollVideo" muted playsinline preload="auto">
@@ -564,9 +612,9 @@
   </video>
   <div class="bg-overlay"></div>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR (STICKY / ALWAYS VISIBLE) -->
   <nav class="navbar">
-    <a href="#" class="nav-logo">
+    <a href="#top" class="nav-logo">
       <svg height="25" viewBox="2.586 66.379 250.828 124.639" width="25" xmlns="http://www.w3.org/2000/svg">
         <g fill="none" fill-rule="evenodd">
           <path d="m102.907 106.981-66.897 40.034c-9.6 5.83-22.009 2.773-27.716-6.83-5.708-9.601-2.552-22.112 7.048-27.942l66.897-40.034c9.6-5.83 22.009-2.773 27.716 6.83s2.552 22.112-7.048 27.942z" fill="#ea4335"/>
@@ -575,7 +623,7 @@
           <path d="m153.093 106.981 66.897 40.034c9.6 5.83 22.009 2.773 27.716-6.83 5.708-9.601 2.552-22.112-7.048-27.942l-66.897-40.034c-9.6-5.83-22.009-2.773-27.716 6.83s2.552 22.112 7.048 27.942z" fill="#0f9d58"/>
         </g>
       </svg>
-      <span>Google Developers Group</span>
+      <span>GDG</span>
     </a>
 
     <div class="nav-right">
@@ -601,7 +649,7 @@
     <div id="stack-carousel-root"></div>
 
     <!-- VINTAGE TORN PAPER LOGIN FORM -->
-    <div class="form-container-card">
+    <div class="form-container-card" id="login-section">
       <div class="form-paper">
         <div class="notebook-holes">
           <div class="hole"></div>
@@ -623,9 +671,28 @@
             <input type="email" id="emailAddr" placeholder="Enter your email" required />
           </div>
 
-          <button type="submit" class="submit-btn">Authenticate</button>
+          <button type="submit" class="submit-btn">Register Now</button>
         </form>
       </div>
+    </div>
+
+    <!-- HORIZONTAL DIVIDER LINE -->
+    <hr class="footer-divider" />
+
+    <!-- FOOTER DETAILS SECTION -->
+    <div class="footer-details">
+      <div class="footer-item">
+        <span class="lol">Organised by :</span> Google Developer Group
+      </div>
+      <div class="footer-item">
+        <span class="lol">Developed by :</span> Peter parker (Ayesha Kazi lol)
+      </div>
+      <div class="footer-item">
+        <span class="lol">Event :</span> Daily Bugle Expo
+      </div>
+      <p>
+        "With great code comes.... ok you get it lets go build something"
+      </p>
     </div>
   </div>
 
@@ -641,10 +708,10 @@
     </div>
 
     <ul class="side-menu-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#stages">Stages</a></li>
-      <li><a href="#login">Login</a></li>
+      <li><a id="link-home">Home</a></li>
+      <li><a id="link-about">About</a></li>
+      <li><a id="link-stages">Stages</a></li>
+      <li><a id="link-login">Login</a></li>
     </ul>
   </div>
 
@@ -654,7 +721,6 @@
     const closeMenuBtn = document.getElementById('closeMenuBtn');
     const sideMenu = document.getElementById('sideMenu');
     const menuBackdrop = document.getElementById('menuBackdrop');
-    const sideMenuLinks = document.querySelectorAll('.side-menu-links a');
 
     function openMenu() {
       sideMenu.classList.add('open');
@@ -669,10 +735,6 @@
     openMenuBtn.addEventListener('click', openMenu);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
     menuBackdrop.addEventListener('click', closeMenu);
-
-    sideMenuLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
 
     const video = document.getElementById('scrollVideo');
     let ticking = false;
@@ -696,7 +758,7 @@
     video.addEventListener('loadedmetadata', updateVideoTime);
   </script>
 
-  <!-- BABEL REACT CAROUSEL COMPONENT -->
+  <!-- BABEL REACT CAROUSEL COMPONENT WITH LINK NAVIGATION -->
   <script type="text/babel">
     const { useState, useEffect } = React;
     const { motion, useMotionValue, useTransform } = window.Motion;
@@ -749,7 +811,9 @@
       autoplayDelay = 3000,
       pauseOnHover = false,
       mobileClickOnly = false,
-      mobileBreakpoint = 768
+      mobileBreakpoint = 768,
+      externalStack,
+      setExternalStack
     }) {
       const [isMobile, setIsMobile] = useState(false);
       const [isPaused, setIsPaused] = useState(false);
@@ -767,18 +831,10 @@
       const shouldDisableDrag = mobileClickOnly && isMobile;
       const shouldEnableClick = sendToBackOnClick || shouldDisableDrag;
 
-      const [stack, setStack] = useState(() => {
-        return cards.map((content, index) => ({ id: index + 1, content }));
-      });
-
-      useEffect(() => {
-        if (cards.length) {
-          setStack(cards.map((content, index) => ({ id: index + 1, content })));
-        }
-      }, [cards]);
+      const stack = externalStack;
 
       const sendToBack = id => {
-        setStack(prev => {
+        setExternalStack(prev => {
           const newStack = [...prev];
           const index = newStack.findIndex(card => card.id === id);
           const [card] = newStack.splice(index, 1);
@@ -786,17 +842,6 @@
           return newStack;
         });
       };
-
-      useEffect(() => {
-        if (autoplay && stack.length > 1 && !isPaused) {
-          const interval = setInterval(() => {
-            const topCardId = stack[stack.length - 1].id;
-            sendToBack(topCardId);
-          }, autoplayDelay);
-
-          return () => clearInterval(interval);
-        }
-      }, [autoplay, autoplayDelay, stack, isPaused]);
 
       return (
         <div
@@ -858,33 +903,69 @@
     function CarouselApp() {
       const cardsContent = [
         <NotebookCard key="stage4" title="Stage 4: Brand New Day">
-          <p><strong>Focus:</strong> Communication & Presentation Pitch</p>
-          <br />
-          <p>Learn how to present complex technical ideas clearly to stakeholders, craft compelling project pitches, and demonstrate leadership like a seasoned developer.</p>
+          <p><strong>Core Focus:</strong> Project Pitching & Technical Leadership</p>
+          <p>Learn to articulate technical choices, build cohesive project presentations, and pitch like a lead developer.</p>
+
+          <div className="paper-subtitle">Key Topics & Modules:</div>
+          <ul className="paper-list">
+            <li><strong>Technical Pitching:</strong> Translating code architecture into clear value propositions.</li>
+            <li><strong>Demo Night Prep:</strong> Designing clean deck flows and managing live product demos.</li>
+            <li><strong>Team Leadership:</strong> Delegate effectively and coordinate rapid hackathon-style releases.</li>
+          </ul>
+
+          <div className="paper-subtitle">Hands-on Challenge:</div>
+          <p>Deliver a 3-minute live technical pitch of your completed full-stack web application to judges and peer developers.</p>
         </NotebookCard>,
 
         <NotebookCard key="stage3" title="Stage 3: No Way Home">
-          <p><strong>Focus:</strong> Problem-Solving Optimization</p>
-          <br />
-          <p>Dive deep into algorithm optimization, data structure tuning, scalable software design, and high-performance debugging under strict deadlines.</p>
+          <p><strong>Core Focus:</strong> Advanced Optimization & Debugging</p>
+          <p>Deepen your engineering acumen by diagnosing runtime bottlenecks, refining memory management, and scaling services.</p>
+
+          <div className="paper-subtitle">Key Topics & Modules:</div>
+          <ul className="paper-list">
+            <li><strong>Performance Profiling:</strong> Identifying memory leaks and asynchronous thread blocks.</li>
+            <li><strong>Database Optimization:</strong> Indexing strategies, query caching, and connection pooling.</li>
+            <li><strong>Fault-Tolerant Code:</strong> Implementing retries, fallbacks, and error boundaries.</li>
+          </ul>
+
+          <div className="paper-subtitle">Hands-on Challenge:</div>
+          <p>Refactor a broken, high-latency legacy codebase and reduce API response time by over 60%.</p>
         </NotebookCard>,
 
         <NotebookCard key="stage2" title="Stage 2: Far From Home">
-          <p><strong>Focus:</strong> Web Dev & UI/UX Concepts</p>
-          <br />
-          <p>Master modern web stacks, fluid layout systems, responsive UI components, and modern frontend frameworks to build production-grade web applications.</p>
+          <p><strong>Core Focus:</strong> Modern Web Engineering & UI Systems</p>
+          <p>Transition from raw logical algorithms to building reactive, visually stunning, production-ready web interfaces.</p>
+
+          <div className="paper-subtitle">Key Topics & Modules:</div>
+          <ul className="paper-list">
+            <li><strong>Frontend Architecture:</strong> Component-driven development with React & Framer Motion.</li>
+            <li><strong>Responsive CSS Systems:</strong> Modern layout techniques using CSS Grid and Flexbox.</li>
+            <li><strong>API Integration:</strong> Fetching, storing, and rendering async data seamlessly.</li>
+          </ul>
+
+          <div className="paper-subtitle">Hands-on Challenge:</div>
+          <p>Build an interactive dashboard with custom animations and smooth multi-device responsiveness.</p>
         </NotebookCard>,
 
         <NotebookCard key="stage1" title="Stage 1: Homecoming">
-          <p><strong>Focus:</strong> Logic & Analytical Thinking</p>
-          <br />
-          <p>Build core algorithmic thinking, master foundational programming principles, and sharpen logical problem-solving frameworks for engineering challenges.</p>
+          <p><strong>Core Focus:</strong> Algorithmic Logic & Engineering Fundamentals</p>
+          <p>Establish a solid foundation in computational thinking, problem decomposition, and algorithmic efficiency.</p>
+
+          <div className="paper-subtitle">Key Topics & Modules:</div>
+          <ul className="paper-list">
+            <li><strong>Algorithmic Thinking:</strong> Breaking complex challenges into step-by-step logic pipelines.</li>
+            <li><strong>Data Structures:</strong> Arrays, Stacks, Queues, Hash Maps, and Binary Search Trees.</li>
+            <li><strong>Time & Space Complexity:</strong> Master Big-O analysis for scalable code execution.</li>
+          </ul>
+
+          <div className="paper-subtitle">Hands-on Challenge:</div>
+          <p>Solve 5 timed algorithmic puzzles and optimize time complexity from $O(n^2)$ down to $O(n \log n)$.</p>
         </NotebookCard>,
 
         <NotebookCard key="overview" title="Bootcamp Overview">
-          <p>The Spider-Man Bootcamp is an intensive, hands on skill building experience designed to transform engineering students into agile, full-stack problem solvers. From mastering basic logic to deploying sleek web interfaces and pitching under pressure, this journey maps directly to Peter Parker's evolution from a gifted kid to an independent hero.</p>
-          
-          <div className="paper-subtitle">Bootcamp Stages:</div>
+          <p>The Spider-Man Tech Bootcamp is an intensive, hands-on engineering journey designed to transform students into agile, full-stack problem solvers. Inspired by Peter Parker's evolution, this program takes you from fundamental logic to deploying sleek applications and pitching under pressure.</p>
+
+          <div className="paper-subtitle">Curriculum Stages:</div>
           <ul className="paper-list">
             <li><strong>Stage 1: Homecoming</strong> – Logic & Analytical Thinking</li>
             <li><strong>Stage 2: Far From Home</strong> – Web Dev & UI/UX Concepts</li>
@@ -893,6 +974,66 @@
           </ul>
         </NotebookCard>
       ];
+
+      const [stack, setStack] = useState(() => {
+        return cardsContent.map((content, index) => ({ id: index + 1, content }));
+      });
+
+      // Navigation Actions Linked to Side Menu
+      useEffect(() => {
+        const linkHome = document.getElementById('link-home');
+        const linkAbout = document.getElementById('link-about');
+        const linkStages = document.getElementById('link-stages');
+        const linkLogin = document.getElementById('link-login');
+        const carouselEl = document.getElementById('stack-carousel-root');
+
+        if (linkHome) {
+          linkHome.onclick = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeMenu();
+          };
+        }
+
+        if (linkAbout) {
+          linkAbout.onclick = () => {
+            if (carouselEl) {
+              carouselEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Move Overview (ID: 5) to top of stack
+            setStack(prev => {
+              const overviewCard = prev.find(card => card.id === 5);
+              const otherCards = prev.filter(card => card.id !== 5);
+              return [...otherCards, overviewCard];
+            });
+            closeMenu();
+          };
+        }
+
+        if (linkStages) {
+          linkStages.onclick = () => {
+            if (carouselEl) {
+              carouselEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Move Stage 1 (ID: 4) to top of stack
+            setStack(prev => {
+              const stage1Card = prev.find(card => card.id === 4);
+              const otherCards = prev.filter(card => card.id !== 4);
+              return [...otherCards, stage1Card];
+            });
+            closeMenu();
+          };
+        }
+
+        if (linkLogin) {
+          linkLogin.onclick = () => {
+            const loginSection = document.getElementById('login-section');
+            if (loginSection) {
+              loginSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            closeMenu();
+          };
+        }
+      }, []);
 
       return (
         <div className="stack-wrapper">
@@ -903,6 +1044,8 @@
             cards={cardsContent}
             autoplay={false}
             pauseOnHover={false}
+            externalStack={stack}
+            setExternalStack={setStack}
           />
         </div>
       );
