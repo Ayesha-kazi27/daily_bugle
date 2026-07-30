@@ -61,7 +61,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle, rgba(13, 11, 20, 0.4) 0%, rgba(13, 11, 20, 0.85) 100%);
+      background: radial-gradient(circle, rgba(62, 7, 3, 0.3) 0%, rgba(13, 11, 20, 0.9) 100%);
       z-index: -1;
       pointer-events: none;
     }
@@ -76,14 +76,14 @@
       width: 90%;
       max-width: 960px;
       padding: 0.75rem 1.25rem;
-      background: rgba(18, 14, 28, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(62, 7, 3, 0.65);
+      border: 1px solid rgba(255, 240, 196, 0.2);
       border-radius: 12px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 100;
       font-family: 'Orbitron', sans-serif;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     }
 
     .nav-logo {
@@ -91,7 +91,7 @@
       align-items: center;
       gap: 0.65rem;
       text-decoration: none;
-      color: #ffffff;
+      color: #FFF0C4;
       font-weight: 700;
       font-size: 1.05rem;
       letter-spacing: -0.2px;
@@ -105,16 +105,19 @@
     }
 
     .nav-links a {
-      color: #9d99ae;
+      color: #FFF0C4;
       text-decoration: none;
       font-size: 0.95rem;
-      transition: color 0.2s ease;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
       cursor: pointer;
       font-weight: 500;
+      opacity: 0.85;
     }
 
     .nav-links a:hover {
       color: #ffffff;
+      opacity: 1;
+      text-shadow: 0 0 8px #8C1007;
     }
 
     /* --- HERO SECTION & GLITCH TEXT --- */
@@ -156,14 +159,14 @@
 
     .glitch-text::before {
       left: 3px;
-      text-shadow: -3px 0 #ea4335;
+      text-shadow: -3px 0 #8C1007;
       clip: rect(24px, 9999px, 90px, 0);
       animation: glitch-anim-1 2s infinite linear alternate-reverse;
     }
 
     .glitch-text::after {
       left: -3px;
-      text-shadow: -3px 0 #4285f4;
+      text-shadow: -3px 0 #660B05;
       clip: rect(85px, 9999px, 140px, 0);
       animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
     }
@@ -269,15 +272,15 @@
     .notebook-paper {
       width: 100%;
       height: 100%;
-      background-color: #f1ebd9;
+      background-color: #FFF0C4;
       background-image: 
-        linear-gradient(90deg, transparent 48px, #e8a8a8 48px, #e8a8a8 50px, transparent 50px),
-        linear-gradient(#cbe2f3 1px, transparent 1px);
+        linear-gradient(90deg, transparent 48px, #8C1007 48px, #8C1007 50px, transparent 50px),
+        linear-gradient(#660B05 1px, transparent 1px);
       background-size: 100% 100%, 100% 28px;
       border-radius: 4px;
       position: relative;
       padding: 2.2rem 2rem 2.2rem 3.8rem;
-      color: #4a1515;
+      color: #3E0703;
       text-align: left;
       box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
@@ -315,19 +318,19 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 1.25rem;
       font-weight: 900;
-      color: #5c0f0f;
+      color: #660B05;
       text-align: center;
       margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      border-bottom: 2px solid #5c0f0f;
+      border-bottom: 2px solid #660B05;
       padding-bottom: 0.4rem;
     }
 
     .paper-body {
       font-size: 0.78rem;
       line-height: 1.55;
-      color: #2b1212;
+      color: #3E0703;
       font-weight: 500;
       font-family: 'Orbitron', sans-serif;
     }
@@ -336,7 +339,7 @@
       font-weight: 700;
       margin-top: 0.8rem;
       margin-bottom: 0.4rem;
-      color: #5c0f0f;
+      color: #660B05;
       text-transform: uppercase;
       font-size: 0.82rem;
     }
@@ -362,10 +365,10 @@
 
     .form-paper {
       width: 100%;
-      background-color: #f1ebd9;
+      background-color: #FFF0C4;
       background-image: 
-        linear-gradient(90deg, transparent 48px, #e8a8a8 48px, #e8a8a8 50px, transparent 50px),
-        linear-gradient(#cbe2f3 1px, transparent 1px);
+        linear-gradient(90deg, transparent 48px, #8C1007 48px, #8C1007 50px, transparent 50px),
+        linear-gradient(#660B05 1px, transparent 1px);
       background-size: 100% 100%, 100% 32px;
       position: relative;
       padding: 2.5rem 2.5rem 2.5rem 4rem;
@@ -390,10 +393,10 @@
     .form-title {
       font-size: 1.35rem;
       font-weight: 900;
-      color: #5c0f0f;
+      color: #660B05;
       text-transform: uppercase;
       letter-spacing: 1px;
-      border-bottom: 2px solid #5c0f0f;
+      border-bottom: 2px solid #660B05;
       padding-bottom: 0.4rem;
       text-align: center;
       width: 100%;
@@ -409,7 +412,7 @@
 
     .form-group label {
       font-size: 0.8rem;
-      color: #5c0f0f;
+      color: #660B05;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 700;
@@ -419,9 +422,9 @@
       width: 100%;
       padding: 0.85rem 1rem;
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.75);
-      border: 1.5px solid #5c0f0f;
-      color: #2b1212;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #660B05;
+      color: #3E0703;
       font-size: 0.9rem;
       font-family: 'Orbitron', sans-serif;
       outline: none;
@@ -431,15 +434,15 @@
     .form-group input:focus {
       border-color: #8C1007;
       background: #ffffff;
-      box-shadow: 0 0 8px rgba(140, 16, 7, 0.3);
+      box-shadow: 0 0 8px rgba(140, 16, 7, 0.4);
     }
 
     .submit-btn {
       width: 100%;
       padding: 0.9rem;
       margin-top: 0.5rem;
-      background: #5c0f0f;
-      color: #ffffff;
+      background: #660B05;
+      color: #FFF0C4;
       border: none;
       border-radius: 4px;
       font-size: 0.95rem;
@@ -455,7 +458,7 @@
     .submit-btn:hover {
       background: #8C1007;
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 15px rgba(140, 16, 7, 0.4);
     }
 
     /* --- FOOTER DIVIDER & DETAILS --- */
@@ -464,7 +467,7 @@
       max-width: 600px;
       border: none;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #8C1007, #5c0f0f, #8C1007, transparent);
+      background: linear-gradient(90deg, transparent, #8C1007, #FFF0C4, #8C1007, transparent);
       margin: 1.5rem 0 2.5rem 0;
     }
 
@@ -506,11 +509,11 @@
       right: -340px;
       width: 300px;
       height: 100vh;
-      background: transparent;
+      background: rgba(62, 7, 3, 0.85);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
-      border-left: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+      border-left: 1px solid rgba(255, 240, 196, 0.2);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
       z-index: 1000;
       transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       padding: 2rem 1.5rem;
@@ -557,7 +560,7 @@
     }
 
     .side-menu-links a {
-      color: #d1cbdc;
+      color: #FFF0C4;
       text-decoration: none;
       font-size: 1rem;
       font-weight: 500;
@@ -570,7 +573,7 @@
     .side-menu-links a:hover {
       color: #ffffff;
       transform: translateX(5px);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 8px #8C1007;
     }
 
     .menu-backdrop {
@@ -579,7 +582,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
       z-index: 999;
       opacity: 0;
       pointer-events: none;
@@ -607,7 +610,7 @@
 
   <!-- BACKGROUND VIDEO -->
   <video class="bg-video" id="scrollVideo" muted playsinline preload="auto">
-    <source src="./lol.mp4" type="video/mp4" />
+    <source src="./lol2.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   <div class="bg-overlay"></div>
@@ -615,6 +618,7 @@
   <!-- NAVBAR (STICKY / ALWAYS VISIBLE) -->
   <nav class="navbar">
     <a href="#top" class="nav-logo">
+      <!-- RESTORED OFFICIAL GOOGLE DEVELOPERS GROUP SVG COLORS -->
       <svg height="25" viewBox="2.586 66.379 250.828 124.639" width="25" xmlns="http://www.w3.org/2000/svg">
         <g fill="none" fill-rule="evenodd">
           <path d="m102.907 106.981-66.897 40.034c-9.6 5.83-22.009 2.773-27.716-6.83-5.708-9.601-2.552-22.112 7.048-27.942l66.897-40.034c9.6-5.83 22.009-2.773 27.716 6.83s2.552 22.112-7.048 27.942z" fill="#ea4335"/>
@@ -682,15 +686,15 @@
     <!-- FOOTER DETAILS SECTION -->
     <div class="footer-details">
       <div class="footer-item">
-        <span class="lol">Organised by :</span> Google Developer Group
+        <span class="lol-label">Organised by :</span> GDG
       </div>
       <div class="footer-item">
-        <span class="lol">Developed by :</span> Peter parker (Ayesha Kazi lol)
+        <span class="lol-label">Developed by :</span> Peter parker (Ayesha Kazi lol)
       </div>
       <div class="footer-item">
-        <span class="lol">Event :</span> Daily Bugle Expo
+        <span class="lol-label">Event :</span> Daily Bugle Expo
       </div>
-      <p>
+      <p class="footer-quote">
         "With great code comes.... ok you get it lets go build something"
       </p>
     </div>
@@ -901,35 +905,33 @@
     }
 
     function CarouselApp() {
+      // CARDS IN SEQUENTIAL ORDER (OVERVIEW -> STAGE 1 -> STAGE 2 -> STAGE 3 -> STAGE 4)
       const cardsContent = [
-        <NotebookCard key="stage4" title="Stage 4: Brand New Day">
-          <p><strong>Core Focus:</strong> Project Pitching & Technical Leadership</p>
-          <p>Learn to articulate technical choices, build cohesive project presentations, and pitch like a lead developer.</p>
+        <NotebookCard key="overview" title="Bootcamp Overview">
+          <p>The Spider-Man Tech Bootcamp is an intensive, hands-on engineering journey designed to transform students into agile, full-stack problem solvers. Inspired by Peter Parker's evolution, this program takes you from fundamental logic to deploying sleek applications and pitching under pressure.</p>
 
-          <div className="paper-subtitle">Key Topics & Modules:</div>
+          <div className="paper-subtitle">Curriculum Stages:</div>
           <ul className="paper-list">
-            <li><strong>Technical Pitching:</strong> Translating code architecture into clear value propositions.</li>
-            <li><strong>Demo Night Prep:</strong> Designing clean deck flows and managing live product demos.</li>
-            <li><strong>Team Leadership:</strong> Delegate effectively and coordinate rapid hackathon-style releases.</li>
+            <li><strong>Stage 1: Homecoming</strong> – Logic & Analytical Thinking</li>
+            <li><strong>Stage 2: Far From Home</strong> – Web Dev & UI/UX Concepts</li>
+            <li><strong>Stage 3: No Way Home</strong> – Problem-Solving Optimization</li>
+            <li><strong>Stage 4: Brand New Day</strong> – Communication & Presentation Pitch</li>
           </ul>
-
-          <div className="paper-subtitle">Hands-on Challenge:</div>
-          <p>Deliver a 3-minute live technical pitch of your completed full-stack web application to judges and peer developers.</p>
         </NotebookCard>,
 
-        <NotebookCard key="stage3" title="Stage 3: No Way Home">
-          <p><strong>Core Focus:</strong> Advanced Optimization & Debugging</p>
-          <p>Deepen your engineering acumen by diagnosing runtime bottlenecks, refining memory management, and scaling services.</p>
+        <NotebookCard key="stage1" title="Stage 1: Homecoming">
+          <p><strong>Core Focus:</strong> Algorithmic Logic & Engineering Fundamentals</p>
+          <p>Establish a solid foundation in computational thinking, problem decomposition, and algorithmic efficiency.</p>
 
           <div className="paper-subtitle">Key Topics & Modules:</div>
           <ul className="paper-list">
-            <li><strong>Performance Profiling:</strong> Identifying memory leaks and asynchronous thread blocks.</li>
-            <li><strong>Database Optimization:</strong> Indexing strategies, query caching, and connection pooling.</li>
-            <li><strong>Fault-Tolerant Code:</strong> Implementing retries, fallbacks, and error boundaries.</li>
+            <li><strong>Algorithmic Thinking:</strong> Breaking complex challenges into step-by-step logic pipelines.</li>
+            <li><strong>Data Structures:</strong> Arrays, Stacks, Queues, Hash Maps, and Binary Search Trees.</li>
+            <li><strong>Time & Space Complexity:</strong> Master Big-O analysis for scalable code execution.</li>
           </ul>
 
           <div className="paper-subtitle">Hands-on Challenge:</div>
-          <p>Refactor a broken, high-latency legacy codebase and reduce API response time by over 60%.</p>
+          <p>Solve 5 timed algorithmic puzzles and optimize time complexity from Big-O $O(n^2)$ down to $O(n \log n)$.</p>
         </NotebookCard>,
 
         <NotebookCard key="stage2" title="Stage 2: Far From Home">
@@ -947,31 +949,34 @@
           <p>Build an interactive dashboard with custom animations and smooth multi-device responsiveness.</p>
         </NotebookCard>,
 
-        <NotebookCard key="stage1" title="Stage 1: Homecoming">
-          <p><strong>Core Focus:</strong> Algorithmic Logic & Engineering Fundamentals</p>
-          <p>Establish a solid foundation in computational thinking, problem decomposition, and algorithmic efficiency.</p>
+        <NotebookCard key="stage3" title="Stage 3: No Way Home">
+          <p><strong>Core Focus:</strong> Advanced Optimization & Debugging</p>
+          <p>Deepen your engineering acumen by diagnosing runtime bottlenecks, refining memory management, and scaling services.</p>
 
           <div className="paper-subtitle">Key Topics & Modules:</div>
           <ul className="paper-list">
-            <li><strong>Algorithmic Thinking:</strong> Breaking complex challenges into step-by-step logic pipelines.</li>
-            <li><strong>Data Structures:</strong> Arrays, Stacks, Queues, Hash Maps, and Binary Search Trees.</li>
-            <li><strong>Time & Space Complexity:</strong> Master Big-O analysis for scalable code execution.</li>
+            <li><strong>Performance Profiling:</strong> Identifying memory leaks and asynchronous thread blocks.</li>
+            <li><strong>Database Optimization:</strong> Indexing strategies, query caching, and connection pooling.</li>
+            <li><strong>Fault-Tolerant Code:</strong> Implementing retries, fallbacks, and error boundaries.</li>
           </ul>
 
           <div className="paper-subtitle">Hands-on Challenge:</div>
-          <p>Solve 5 timed algorithmic puzzles and optimize time complexity from $O(n^2)$ down to $O(n \log n)$.</p>
+          <p>Refactor a broken, high-latency legacy codebase and reduce API response time by over 60%.</p>
         </NotebookCard>,
 
-        <NotebookCard key="overview" title="Bootcamp Overview">
-          <p>The Spider-Man Tech Bootcamp is an intensive, hands-on engineering journey designed to transform students into agile, full-stack problem solvers. Inspired by Peter Parker's evolution, this program takes you from fundamental logic to deploying sleek applications and pitching under pressure.</p>
+        <NotebookCard key="stage4" title="Stage 4: Brand New Day">
+          <p><strong>Core Focus:</strong> Project Pitching & Technical Leadership</p>
+          <p>Learn to articulate technical choices, build cohesive project presentations, and pitch like a lead developer.</p>
 
-          <div className="paper-subtitle">Curriculum Stages:</div>
+          <div className="paper-subtitle">Key Topics & Modules:</div>
           <ul className="paper-list">
-            <li><strong>Stage 1: Homecoming</strong> – Logic & Analytical Thinking</li>
-            <li><strong>Stage 2: Far From Home</strong> – Web Dev & UI/UX Concepts</li>
-            <li><strong>Stage 3: No Way Home</strong> – Problem-Solving Optimization</li>
-            <li><strong>Stage 4: Brand New Day</strong> – Communication & Presentation Pitch</li>
+            <li><strong>Technical Pitching:</strong> Translating code architecture into clear value propositions.</li>
+            <li><strong>Demo Night Prep:</strong> Designing clean deck flows and managing live product demos.</li>
+            <li><strong>Team Leadership:</strong> Delegate effectively and coordinate rapid hackathon-style releases.</li>
           </ul>
+
+          <div className="paper-subtitle">Hands-on Challenge:</div>
+          <p>Deliver a 3-minute live technical pitch of your completed full-stack web application to judges and peer developers.</p>
         </NotebookCard>
       ];
 
@@ -999,10 +1004,10 @@
             if (carouselEl) {
               carouselEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            // Move Overview (ID: 5) to top of stack
+            // Move Overview (ID: 1) to top of stack
             setStack(prev => {
-              const overviewCard = prev.find(card => card.id === 5);
-              const otherCards = prev.filter(card => card.id !== 5);
+              const overviewCard = prev.find(card => card.id === 1);
+              const otherCards = prev.filter(card => card.id !== 1);
               return [...otherCards, overviewCard];
             });
             closeMenu();
@@ -1014,10 +1019,10 @@
             if (carouselEl) {
               carouselEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            // Move Stage 1 (ID: 4) to top of stack
+            // Move Stage 1 (ID: 2) to top of stack
             setStack(prev => {
-              const stage1Card = prev.find(card => card.id === 4);
-              const otherCards = prev.filter(card => card.id !== 4);
+              const stage1Card = prev.find(card => card.id === 2);
+              const otherCards = prev.filter(card => card.id !== 2);
               return [...otherCards, stage1Card];
             });
             closeMenu();
