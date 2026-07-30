@@ -309,23 +309,54 @@
       transform: translateY(-50%) scale(0.92);
     }
 
+    .carousel-wrapper:focus-visible {
+      outline: 2px solid #FFF0C4;
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .carousel-btn:focus-visible,
+    .carousel-dots .dot:focus-visible {
+      outline: 2px solid #FFF0C4;
+      outline-offset: 2px;
+    }
+
     .carousel-btn.prev { left: 0.25rem; }
     .carousel-btn.next { right: 0.25rem; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+      padding: 0;
+      margin: -1px;
+    }
 
     .carousel-dots {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       margin-top: 1rem;
     }
 
     .carousel-dots .dot {
-      width: 9px;
-      height: 9px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: rgba(255, 240, 196, 0.3);
-      border: none;
+      background: rgba(255, 240, 196, 0.12);
+      border: 1px solid rgba(255, 240, 196, 0.3);
+      color: rgba(255, 240, 196, 0.6);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -333,8 +364,11 @@
 
     .carousel-dots .dot.active {
       background: #FFF0C4;
-      width: 24px;
-      border-radius: 5px;
+      border-color: #FFF0C4;
+      color: #660B05;
+      width: 30px;
+      height: 30px;
+      box-shadow: 0 0 10px rgba(255, 240, 196, 0.5);
     }
 
     /* --- REUSABLE TORN NOTEBOOK PAPER STYLING --- */
@@ -365,6 +399,18 @@
       user-select: none;
     }
 
+    /* Halftone comic-print texture, sits behind the text */
+    .notebook-paper::before,
+    .form-paper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(102, 11, 5, 0.14) 1px, transparent 1.3px);
+      background-size: 7px 7px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .notebook-holes {
       position: absolute;
       left: 18px;
@@ -374,6 +420,7 @@
       flex-direction: column;
       justify-content: space-around;
       padding: 2rem 0;
+      z-index: 1;
     }
 
     .hole {
@@ -395,6 +442,8 @@
       letter-spacing: 1px;
       border-bottom: 2px solid #660B05;
       padding-bottom: 0.4rem;
+      position: relative;
+      z-index: 1;
     }
 
     .paper-body {
@@ -403,6 +452,8 @@
       color: #3E0703;
       font-weight: 500;
       font-family: 'Orbitron', sans-serif;
+      position: relative;
+      z-index: 1;
     }
 
     .paper-subtitle {
@@ -453,6 +504,8 @@
     }
 
     .form-content {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -529,6 +582,123 @@
       background: #8C1007;
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(140, 16, 7, 0.4);
+    }
+
+    /* --- FLIP CARD: registration form <-> confirmation slip --- */
+    .form-flip {
+      display: grid;
+      perspective: 1600px;
+    }
+
+    .form-face {
+      grid-area: 1 / 1;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    }
+
+    .form-front {
+      transform: rotateY(0deg);
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .form-back {
+      transform: rotateY(180deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .form-flip.flipped .form-front {
+      transform: rotateY(-180deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .form-flip.flipped .form-back {
+      transform: rotateY(0deg);
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .confirmation-content {
+      text-align: center;
+    }
+
+    .confirmation-text {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #3E0703;
+      font-weight: 500;
+    }
+
+    .ink-stamp {
+      display: inline-block;
+      border: 4px solid #8C1007;
+      color: #8C1007;
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 0.35rem 1.1rem;
+      border-radius: 8px;
+      opacity: 0;
+      transform: rotate(-8deg) scale(0.7);
+    }
+
+    .ink-stamp.play {
+      animation: stamp-in 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.3) 0.45s forwards;
+    }
+
+    @keyframes stamp-in {
+      to { opacity: 0.85; transform: rotate(-8deg) scale(1); }
+    }
+
+    /* --- SCROLL-TRIGGERED REVEAL --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- TYPEWRITER CURSOR --- */
+    .typing-cursor::after {
+      content: '\258C';
+      margin-left: 2px;
+      animation: cursor-blink 0.8s steps(1) infinite;
+    }
+
+    @keyframes cursor-blink {
+      50% { opacity: 0; }
+    }
+
+    /* --- CLICK SPARK --- */
+    .click-spark {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      animation: spark-burst 0.6s ease-out forwards;
+    }
+
+    @keyframes spark-burst {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+      .typing-cursor::after { animation: none !important; }
     }
 
     /* --- FOOTER DIVIDER & DETAILS --- */
@@ -759,36 +929,58 @@
   <div class="content-wrapper">
     <h4 class="lol">Organized by :</h4>
     <h4>Google Developers Group, Pillai College of Engineering</h4>
-    <h3>"With Great Code comes... ok you get it, Let's go build something"</h3>
+    <h3 id="typewriter-subtitle">"With Great Code comes... ok you get it, Let's go build something"</h3>
 
     <!-- REACT MOUNT POINT FOR STACK CAROUSEL -->
     <div id="stack-carousel-root"></div>
 
-    <!-- VINTAGE TORN PAPER LOGIN FORM -->
-    <div class="form-container-card" id="login-section">
-      <div class="form-paper">
-        <div class="notebook-holes">
-          <div class="hole"></div>
-          <div class="hole"></div>
-          <div class="hole"></div>
-          <div class="hole"></div>
+    <!-- VINTAGE TORN PAPER LOGIN FORM / CONFIRMATION FLIP -->
+    <div class="form-container-card reveal" id="login-section">
+      <div class="form-flip" id="formFlip">
+        <div class="form-face form-front">
+          <div class="form-paper">
+            <div class="notebook-holes">
+              <div class="hole"></div>
+              <div class="hole"></div>
+              <div class="hole"></div>
+              <div class="hole"></div>
+            </div>
+
+            <form class="form-content" id="registerForm">
+              <h3 class="form-title">Register Bugle Portal</h3>
+
+              <div class="form-group">
+                <label for="fullName">Team Name</label>
+                <input type="text" id="fullName" placeholder="Enter your name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="emailAddr">Email Address</label>
+                <input type="email" id="emailAddr" placeholder="Enter your email" required />
+              </div>
+
+              <button type="submit" class="submit-btn">Register Now</button>
+            </form>
+          </div>
         </div>
 
-        <form class="form-content" onsubmit="event.preventDefault(); alert('Registration Submitted!');">
-          <h3 class="form-title">Login Bugle Portal</h3>
-          
-          <div class="form-group">
-            <label for="fullName">Team Name</label>
-            <input type="text" id="fullName" placeholder="Enter your name" required />
-          </div>
+        <div class="form-face form-back">
+          <div class="form-paper confirmation-paper">
+            <div class="notebook-holes">
+              <div class="hole"></div>
+              <div class="hole"></div>
+              <div class="hole"></div>
+              <div class="hole"></div>
+            </div>
 
-          <div class="form-group">
-            <label for="emailAddr">Email Address</label>
-            <input type="email" id="emailAddr" placeholder="Enter your email" required />
+            <div class="form-content confirmation-content">
+              <div class="ink-stamp" id="inkStamp">Approved</div>
+              <h3 class="form-title">Registration Confirmed</h3>
+              <p class="confirmation-text" id="confirmationText">Your team is officially on the Bugle roster. Watch your inbox for stage details.</p>
+              <button type="button" class="submit-btn" id="flipBackBtn">Register Another Team</button>
+            </div>
           </div>
-
-          <button type="submit" class="submit-btn">Register Now</button>
-        </form>
+        </div>
       </div>
     </div>
 
@@ -796,7 +988,7 @@
     <hr class="footer-divider" />
 
     <!-- FOOTER DETAILS SECTION -->
-    <div class="footer-details">
+    <div class="footer-details reveal">
       <div class="footer-row">
         <div class="footer-item">
           <span class="lol-label">Organised by :</span> 
@@ -881,6 +1073,103 @@
     });
 
     video.addEventListener('loadedmetadata', updateVideoTime);
+
+    // --- REDUCED MOTION CHECK (shared) ---
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // --- TYPEWRITER SUBTITLE ---
+    const typeTarget = document.getElementById('typewriter-subtitle');
+    if (typeTarget) {
+      const fullText = typeTarget.textContent;
+      if (prefersReducedMotion) {
+        typeTarget.textContent = fullText;
+      } else {
+        typeTarget.textContent = '';
+        typeTarget.classList.add('typing-cursor');
+        let charIndex = 0;
+        (function typeChar() {
+          if (charIndex <= fullText.length) {
+            typeTarget.textContent = fullText.slice(0, charIndex);
+            charIndex++;
+            setTimeout(typeChar, 28);
+          } else {
+            typeTarget.classList.remove('typing-cursor');
+          }
+        })();
+      }
+    }
+
+    // --- SCROLL-TRIGGERED REVEAL ---
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && revealEls.length) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach((el) => revealObserver.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('revealed'));
+    }
+
+    // --- CLICK SPARK EFFECT ---
+    if (!prefersReducedMotion) {
+      const sparkColors = ['#FFF0C4', '#8C1007', '#ffffff'];
+      document.addEventListener('click', (e) => {
+        const count = 6;
+        for (let i = 0; i < count; i++) {
+          const spark = document.createElement('span');
+          spark.className = 'click-spark';
+          const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+          const distance = 26 + Math.random() * 26;
+          spark.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+          spark.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
+          spark.style.left = `${e.clientX}px`;
+          spark.style.top = `${e.clientY}px`;
+          spark.style.background = sparkColors[i % sparkColors.length];
+          document.body.appendChild(spark);
+          spark.addEventListener('animationend', () => spark.remove());
+        }
+      });
+    }
+
+    // --- REGISTRATION FLIP + INK STAMP ---
+    const registerForm = document.getElementById('registerForm');
+    const formFlip = document.getElementById('formFlip');
+    const inkStamp = document.getElementById('inkStamp');
+    const flipBackBtn = document.getElementById('flipBackBtn');
+    const confirmationText = document.getElementById('confirmationText');
+
+    function playStamp() {
+      inkStamp.classList.remove('play');
+      // Force reflow so the animation can restart every time the form flips.
+      void inkStamp.offsetWidth;
+      inkStamp.classList.add('play');
+    }
+
+    if (registerForm) {
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const teamName = document.getElementById('fullName').value.trim();
+        if (confirmationText) {
+          confirmationText.textContent = teamName
+            ? `Team "${teamName}" is officially on the Bugle roster. Watch your inbox for stage details.`
+            : 'Your team is officially on the Bugle roster. Watch your inbox for stage details.';
+        }
+        formFlip.classList.add('flipped');
+        playStamp();
+      });
+    }
+
+    if (flipBackBtn) {
+      flipBackBtn.addEventListener('click', () => {
+        formFlip.classList.remove('flipped');
+        registerForm.reset();
+      });
+    }
   </script>
 
   <!-- BABEL REACT CAROUSEL COMPONENT WITH LINK NAVIGATION -->
@@ -914,8 +1203,19 @@
         }
       }
 
+      function handleKeyDown(e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      }
+
       return (
-        <div className="carousel-wrapper">
+        <div
+          className="carousel-wrapper"
+          tabIndex={0}
+          role="region"
+          aria-label="Bootcamp stages carousel, use left and right arrow keys to navigate"
+          onKeyDown={handleKeyDown}
+        >
           <div
             className="carousel-viewport"
             onTouchStart={handleTouchStart}
@@ -931,6 +1231,10 @@
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="visually-hidden" aria-live="polite">
+            {`Showing slide ${index + 1} of ${slides.length}`}
           </div>
 
           <button
@@ -958,7 +1262,9 @@
                 className={`dot${i === index ? ' active' : ''}`}
                 onClick={() => goTo(i)}
                 aria-label={`Go to slide ${i + 1}`}
-              />
+              >
+                {i + 1}
+              </button>
             ))}
           </div>
         </div>
