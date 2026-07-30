@@ -2,7 +2,7 @@
 
 A responsive, Spider-Man-themed web UI built for the **Daily Bugle Tech Bootcamp**, organized by **GDG (Google Developer Groups)**. 
 
-This project features interactive UI components, dynamic animations, video scrubbing, and custom notebook-style cards.
+This project features interactive UI components, dynamic animations
 
 ---
 
