@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Bugle Tech Expo</title>
+  <link rel="icon" type="image/svg+xml" href="./gdg.svg" />
+
+  <!-- Google Fonts: Orbitron & Courier Prime -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  
+  <!-- Babel Compiler for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* --- BASE RESET & GLOBAL ORBITRON FONT --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d0b14;
+      font-family: 'Orbitron', sans-serif; /* Replaced default font with Orbitron */
+      min-height: 250vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem;
+      overflow-x: hidden;
+      color: #ffffff;
+    }
+
+    /* --- SCROLL-DRIVEN VIDEO BACKGROUND --- */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle, rgba(13, 11, 20, 0.4) 0%, rgba(13, 11, 20, 0.85) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* --- NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 960px;
+      padding: 0.75rem 1.25rem;
+      background: rgba(18, 14, 28, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #9d99ae;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    /* --- HERO SECTION & GLITCH TEXT (FONT PRESERVED) --- */
+    .hero-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: 3.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .glitch-text {
+      color: #ffffff;
+      font-size: clamp(2rem, 7vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: clamp(1px, 1vw, 4px);
+      text-transform: uppercase;
+      position: relative;
+      display: block;
+      line-height: 1.1;
+      user-select: none;
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif; /* Kept Orbitron bold style for glitch */
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    .glitch-text::before {
+      left: 3px;
+      text-shadow: -3px 0 #ea4335;
+      clip: rect(24px, 9999px, 90px, 0);
+      animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+
+    .glitch-text::after {
+      left: -3px;
+      text-shadow: -3px 0 #4285f4;
+      clip: rect(85px, 9999px, 140px, 0);
+      animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+      0%   { clip: rect(15px, 9999px, 80px, 0); }
+      20%  { clip: rect(60px, 9999px, 10px, 0); }
+      40%  { clip: rect(30px, 9999px, 90px, 0); }
+      60%  { clip: rect(80px, 9999px, 20px, 0); }
+      80%  { clip: rect(10px, 9999px, 50px, 0); }
+      100% { clip: rect(50px, 9999px, 30px, 0); }
+    }
+
+    @keyframes glitch-anim-2 {
+      0%   { clip: rect(40px, 9999px, 10px, 0); }
+      20%  { clip: rect(20px, 9999px, 70px, 0); }
+      40%  { clip: rect(90px, 9999px, 30px, 0); }
+      60%  { clip: rect(10px, 9999px, 80px, 0); }
+      80%  { clip: rect(70px, 9999px, 15px, 0); }
+      100% { clip: rect(30px, 9999px, 60px, 0); }
+    }
+
+    /* --- CONTENT WRAPPER --- */
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+      gap: 0.75rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .lol {
+      color: #8C1007;
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    h4, h3 {
+      color: #FFF0C4;
+    }
+
+    h4 {
+      font-size: clamp(0.95rem, 2.8vw, 1.25rem);
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* --- DESKTOP CAROUSEL SIZE --- */
+    .stack-wrapper {
+      width: 500px;
+      height: 580px;
+      margin-top: 1rem;
+      margin-bottom: 3.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stack-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 800px;
+    }
+
+    .card-rotate {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+
+    .card-rotate-disabled {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+    }
+
+    /* --- REUSABLE TORN NOTEBOOK PAPER STYLING --- */
+    .notebook-paper {
+      width: 100%;
+      height: 100%;
+      background-color: #f1ebd9;
+      background-image: 
+        linear-gradient(90deg, transparent 48px, #e8a8a8 48px, #e8a8a8 50px, transparent 50px),
+        linear-gradient(#cbe2f3 1px, transparent 1px);
+      background-size: 100% 100%, 100% 28px;
+      border-radius: 4px;
+      position: relative;
+      padding: 2.2rem 2.2rem 2.2rem 4rem;
+      color: #4a1515;
+      text-align: left;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif; /* Orbitron applied */
+      
+      clip-path: polygon(
+        0% 2%, 3% 0%, 97% 1%, 100% 3%, 
+        99% 12%, 100% 25%, 98% 38%, 100% 50%, 99% 65%, 100% 78%, 98% 90%, 100% 98%,
+        96% 100%, 82% 99%, 70% 100%, 55% 98%, 40% 100%, 25% 99%, 10% 100%, 0% 98%,
+        1% 85%, 0% 70%, 2% 55%, 0% 40%, 1% 25%, 0% 10%
+      );
+      user-select: none;
+    }
+
+    .notebook-holes {
+      position: absolute;
+      left: 18px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 2rem 0;
+    }
+
+    .hole {
+      width: 16px;
+      height: 16px;
+      background-color: #0d0b14;
+      border-radius: 50%;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .paper-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #5c0f0f;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #5c0f0f;
+      padding-bottom: 0.4rem;
+    }
+
+    .paper-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #2b1212;
+      font-weight: 500;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .paper-subtitle {
+      font-weight: 700;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: #5c0f0f;
+    }
+
+    .paper-list {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+    }
+
+    .paper-list li {
+      margin-bottom: 0.45rem;
+    }
+
+    /* --- VINTAGE TORN PAPER LOGIN FORM --- */
+    .form-container-card {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+    }
+
+    .form-paper {
+      width: 100%;
+      background-color: #f1ebd9;
+      background-image: 
+        linear-gradient(90deg, transparent 48px, #e8a8a8 48px, #e8a8a8 50px, transparent 50px),
+        linear-gradient(#cbe2f3 1px, transparent 1px);
+      background-size: 100% 100%, 100% 32px;
+      position: relative;
+      padding: 2.5rem 2.5rem 2.5rem 4rem;
+      box-sizing: border-box;
+      
+      /* Jagged Torn Edge Clip-Path */
+      clip-path: polygon(
+        0% 1%, 4% 0%, 96% 2%, 100% 0%, 
+        98% 15%, 100% 30%, 97% 48%, 100% 62%, 98% 80%, 100% 97%,
+        95% 100%, 80% 98%, 65% 100%, 48% 99%, 32% 100%, 15% 98%, 0% 100%,
+        2% 82%, 0% 65%, 2% 48%, 0% 30%, 1% 15%
+      );
+    }
+
+    .form-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .form-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #5c0f0f;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #5c0f0f;
+      padding-bottom: 0.4rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      color: #5c0f0f;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1.5px solid #5c0f0f;
+      color: #2b1212;
+      font-size: 0.9rem;
+      font-family: 'Orbitron', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #8C1007;
+      background: #ffffff;
+      box-shadow: 0 0 8px rgba(140, 16, 7, 0.3);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      margin-top: 0.5rem;
+      background: #5c0f0f;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .submit-btn:hover {
+      background: #8C1007;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    /* --- SIDE MENU --- */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -340px;
+      width: 300px;
+      height: 100vh;
+      background: transparent;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .side-menu.open {
+      right: 0;
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .web-shooter-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      outline: none;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .web-shooter-img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+    }
+
+    .side-menu-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .side-menu-links a {
+      color: #d1cbdc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .side-menu-links a:hover {
+      color: #ffffff;
+      transform: translateX(5px);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .menu-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 600px) {
+      body { padding-top: 1rem; }
+      .navbar { width: 95%; padding: 0.6rem 1rem; }
+      .hero-container { padding-top: 2rem; }
+      .stack-wrapper { width: 320px; height: 480px; }
+      .notebook-paper, .form-paper { padding: 1.5rem 1.2rem 1.5rem 3rem; }
+      .paper-title, .form-title { font-size: 1.1rem; }
+      .paper-body { font-size: 0.75rem; line-height: 1.45; }
+      .form-container-card { width: 95%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND VIDEO -->
+  <video class="bg-video" id="scrollVideo" muted playsinline preload="auto">
+    <source src="./lollll.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div class="bg-overlay"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      <svg height="25" viewBox="2.586 66.379 250.828 124.639" width="25" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" fill-rule="evenodd">
+          <path d="m102.907 106.981-66.897 40.034c-9.6 5.83-22.009 2.773-27.716-6.83-5.708-9.601-2.552-22.112 7.048-27.942l66.897-40.034c9.6-5.83 22.009-2.773 27.716 6.83s2.552 22.112-7.048 27.942z" fill="#ea4335"/>
+          <path d="m82.153 185.617-66.182-38.053c-9.742-5.4-13.214-17.764-7.754-27.614s17.784-13.457 27.527-8.057l66.182 38.054c9.743 5.4 13.214 17.763 7.754 27.613s-17.784 13.458-27.527 8.057z" fill="#4285f4"/>
+          <path d="m173.847 185.617 66.182-38.053c9.742-5.4 13.214-17.764 7.754-27.614s-17.784-13.457-27.527-8.057l-66.182 38.054c-9.743 5.4-13.214 17.763-7.754 27.613s17.784 13.458 27.527 8.057z" fill="#fbbc04"/>
+          <path d="m153.093 106.981 66.897 40.034c9.6 5.83 22.009 2.773 27.716-6.83 5.708-9.601 2.552-22.112-7.048-27.942l-66.897-40.034c-9.6-5.83-22.009-2.773-27.716 6.83s2.552 22.112 7.048 27.942z" fill="#0f9d58"/>
+        </g>
+      </svg>
+      <span>Google Developers Group</span>
+    </a>
+
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a id="openMenuBtn">Menu</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <main class="hero-container">
+    <h1 class="glitch-text" data-text="DAILY BUGLE">DAILY BUGLE</h1>
+    <h1 class="glitch-text" data-text="TECH BOOTCAMP">TECH BOOTCAMP</h1>
+  </main>
+
+  <!-- CONTENT -->
+  <div class="content-wrapper">
+    <h4 class="lol">Organized by :</h4>
+    <h4>Google Developers Group, Pillai College of Engineering</h4>
+    <h3>"With Great Code comes... ok you get it, Let's go build something"</h3>
+
+    <!-- REACT MOUNT POINT FOR STACK CAROUSEL -->
+    <div id="stack-carousel-root"></div>
+
+    <!-- VINTAGE TORN PAPER LOGIN FORM -->
+    <div class="form-container-card">
+      <div class="form-paper">
+        <div class="notebook-holes">
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+        </div>
+
+        <form class="form-content" onsubmit="event.preventDefault(); alert('Registration Submitted!');">
+          <h3 class="form-title">Login Bugle Portal</h3>
+          
+          <div class="form-group">
+            <label for="fullName">Team Name</label>
+            <input type="text" id="fullName" placeholder="Enter your name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="emailAddr">Email Address</label>
+            <input type="email" id="emailAddr" placeholder="Enter your email" required />
+          </div>
+
+          <button type="submit" class="submit-btn">Authenticate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU BACKDROP -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <!-- SIDE MENU -->
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-header">
+      <button class="web-shooter-btn" id="closeMenuBtn" title="Close Menu">
+        <img src="./web_white close.png" alt="Close Menu" class="web-shooter-img" />
+      </button>
+    </div>
+
+    <ul class="side-menu-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#stages">Stages</a></li>
+      <li><a href="#login">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- JAVASCRIPT: NAVIGATION & VIDEO SCROLL -->
+  <script>
+    const openMenuBtn = document.getElementById('openMenuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const sideMenuLinks = document.querySelectorAll('.side-menu-links a');
+
+    function openMenu() {
+      sideMenu.classList.add('open');
+      menuBackdrop.classList.add('open');
+    }
+
+    function closeMenu() {
+      sideMenu.classList.remove('open');
+      menuBackdrop.classList.remove('open');
+    }
+
+    openMenuBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    menuBackdrop.addEventListener('click', closeMenu);
+
+    sideMenuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    const video = document.getElementById('scrollVideo');
+    let ticking = false;
+
+    function updateVideoTime() {
+      if (video.duration) {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollFraction = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+        video.currentTime = scrollFraction * video.duration;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateVideoTime);
+        ticking = true;
+      }
+    });
+
+    video.addEventListener('loadedmetadata', updateVideoTime);
+  </script>
+
+  <!-- BABEL REACT CAROUSEL COMPONENT -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { motion, useMotionValue, useTransform } = window.Motion;
+
+    function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }) {
+      const x = useMotionValue(0);
+      const y = useMotionValue(0);
+      const rotateX = useTransform(y, [-100, 100], [60, -60]);
+      const rotateY = useTransform(x, [-100, 100], [-60, 60]);
+
+      function handleDragEnd(_, info) {
+        if (Math.abs(info.offset.x) > sensitivity || Math.abs(info.offset.y) > sensitivity) {
+          onSendToBack();
+        } else {
+          x.set(0);
+          y.set(0);
+        }
+      }
+
+      if (disableDrag) {
+        return (
+          <motion.div className="card-rotate-disabled" style={{ x: 0, y: 0 }}>
+            {children}
+          </motion.div>
+        );
+      }
+
+      return (
+        <motion.div
+          className="card-rotate"
+          style={{ x, y, rotateX, rotateY }}
+          drag
+          dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          dragElastic={0.6}
+          whileTap={{ cursor: 'grabbing' }}
+          onDragEnd={handleDragEnd}
+        >
+          {children}
+        </motion.div>
+      );
+    }
+
+    function Stack({
+      randomRotation = false,
+      sensitivity = 200,
+      cards = [],
+      animationConfig = { stiffness: 260, damping: 20 },
+      sendToBackOnClick = false,
+      autoplay = false,
+      autoplayDelay = 3000,
+      pauseOnHover = false,
+      mobileClickOnly = false,
+      mobileBreakpoint = 768
+    }) {
+      const [isMobile, setIsMobile] = useState(false);
+      const [isPaused, setIsPaused] = useState(false);
+
+      useEffect(() => {
+        const checkMobile = () => {
+          setIsMobile(window.innerWidth < mobileBreakpoint);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+      }, [mobileBreakpoint]);
+
+      const shouldDisableDrag = mobileClickOnly && isMobile;
+      const shouldEnableClick = sendToBackOnClick || shouldDisableDrag;
+
+      const [stack, setStack] = useState(() => {
+        return cards.map((content, index) => ({ id: index + 1, content }));
+      });
+
+      useEffect(() => {
+        if (cards.length) {
+          setStack(cards.map((content, index) => ({ id: index + 1, content })));
+        }
+      }, [cards]);
+
+      const sendToBack = id => {
+        setStack(prev => {
+          const newStack = [...prev];
+          const index = newStack.findIndex(card => card.id === id);
+          const [card] = newStack.splice(index, 1);
+          newStack.unshift(card);
+          return newStack;
+        });
+      };
+
+      useEffect(() => {
+        if (autoplay && stack.length > 1 && !isPaused) {
+          const interval = setInterval(() => {
+            const topCardId = stack[stack.length - 1].id;
+            sendToBack(topCardId);
+          }, autoplayDelay);
+
+          return () => clearInterval(interval);
+        }
+      }, [autoplay, autoplayDelay, stack, isPaused]);
+
+      return (
+        <div
+          className="stack-container"
+          onMouseEnter={() => pauseOnHover && setIsPaused(true)}
+          onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+        >
+          {stack.map((card, index) => {
+            const randomRotate = randomRotation ? Math.random() * 10 - 5 : 0;
+            return (
+              <CardRotate
+                key={card.id}
+                onSendToBack={() => sendToBack(card.id)}
+                sensitivity={sensitivity}
+                disableDrag={shouldDisableDrag}
+              >
+                <motion.div
+                  className="card"
+                  onClick={() => shouldEnableClick && sendToBack(card.id)}
+                  animate={{
+                    rotateZ: (stack.length - index - 1) * 4 + randomRotate,
+                    scale: 1 + index * 0.05 - stack.length * 0.05,
+                    transformOrigin: '90% 90%'
+                  }}
+                  initial={false}
+                  transition={{
+                    type: 'spring',
+                    stiffness: animationConfig.stiffness,
+                    damping: animationConfig.damping
+                  }}
+                >
+                  {card.content}
+                </motion.div>
+              </CardRotate>
+            );
+          })}
+        </div>
+      );
+    }
+
+    function NotebookCard({ title, children }) {
+      return (
+        <div className="notebook-paper">
+          <div className="notebook-holes">
+            <div className="hole"></div>
+            <div className="hole"></div>
+            <div className="hole"></div>
+            <div className="hole"></div>
+            <div className="hole"></div>
+          </div>
+          <h2 className="paper-title">{title}</h2>
+          <div className="paper-body">
+            {children}
+          </div>
+        </div>
+      );
+    }
+
+    function CarouselApp() {
+      const cardsContent = [
+        <NotebookCard key="stage4" title="Stage 4: Brand New Day">
+          <p><strong>Focus:</strong> Communication & Presentation Pitch</p>
+          <br />
+          <p>Learn how to present complex technical ideas clearly to stakeholders, craft compelling project pitches, and demonstrate leadership like a seasoned developer.</p>
+        </NotebookCard>,
+
+        <NotebookCard key="stage3" title="Stage 3: No Way Home">
+          <p><strong>Focus:</strong> Problem-Solving Optimization</p>
+          <br />
+          <p>Dive deep into algorithm optimization, data structure tuning, scalable software design, and high-performance debugging under strict deadlines.</p>
+        </NotebookCard>,
+
+        <NotebookCard key="stage2" title="Stage 2: Far From Home">
+          <p><strong>Focus:</strong> Web Dev & UI/UX Concepts</p>
+          <br />
+          <p>Master modern web stacks, fluid layout systems, responsive UI components, and modern frontend frameworks to build production-grade web applications.</p>
+        </NotebookCard>,
+
+        <NotebookCard key="stage1" title="Stage 1: Homecoming">
+          <p><strong>Focus:</strong> Logic & Analytical Thinking</p>
+          <br />
+          <p>Build core algorithmic thinking, master foundational programming principles, and sharpen logical problem-solving frameworks for engineering challenges.</p>
+        </NotebookCard>,
+
+        <NotebookCard key="overview" title="Bootcamp Overview">
+          <p>The Spider-Man Bootcamp is an intensive, hands on skill building experience designed to transform engineering students into agile, full-stack problem solvers. From mastering basic logic to deploying sleek web interfaces and pitching under pressure, this journey maps directly to Peter Parker's evolution from a gifted kid to an independent hero.</p>
+          
+          <div className="paper-subtitle">Bootcamp Stages:</div>
+          <ul className="paper-list">
+            <li><strong>Stage 1: Homecoming</strong> – Logic & Analytical Thinking</li>
+            <li><strong>Stage 2: Far From Home</strong> – Web Dev & UI/UX Concepts</li>
+            <li><strong>Stage 3: No Way Home</strong> – Problem-Solving Optimization</li>
+            <li><strong>Stage 4: Brand New Day</strong> – Communication & Presentation Pitch</li>
+          </ul>
+        </NotebookCard>
+      ];
+
+      return (
+        <div className="stack-wrapper">
+          <Stack
+            randomRotation={true}
+            sensitivity={150}
+            sendToBackOnClick={true}
+            cards={cardsContent}
+            autoplay={false}
+            pauseOnHover={false}
+          />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('stack-carousel-root'));
+    root.render(<CarouselApp />);
+  </script>
+</body>
+</html>
