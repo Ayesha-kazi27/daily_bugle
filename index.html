@@ -6,10 +6,10 @@
   <title>Daily Bugle Tech Bootcamp</title>
   <link rel="icon" type="image/svg+xml" href="./gdg.svg" />
 
-  <!-- Google Fonts: Orbitron & Courier Prime -->
+  <!-- Google Fonts: Orbitron -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- React & ReactDOM -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
@@ -67,8 +67,8 @@
       pointer-events: none;
     }
 
-    /* Mobile: swap the scroll-scrubbed video for a static, zoomed-out image
-       (object-fit: contain shows the whole image instead of cropping it) */
+    /* Mobile: swap the scroll-scrubbed video for a static background image,
+       filling the screen edge-to-edge (object-fit: cover) */
     @media (max-width: 600px) {
       .bg-video { display: none; }
       .bg-image { display: block; }
@@ -870,6 +870,7 @@
       z-index: 999;
       opacity: 0;
       pointer-events: none;
+      cursor: pointer;
       transition: opacity 0.35s ease;
     }
 
@@ -908,7 +909,7 @@
       .carousel-btn.prev { left: 0; }
       .carousel-btn.next { right: 0; }
       .notebook-paper, .form-paper { padding: 1.2rem 1rem 1.2rem 2.4rem; }
-      .notebook-holes, .form-paper .notebook-holes { left: 10px; }
+      .notebook-holes { left: 10px; }
       .hole { width: 12px; height: 12px; }
     }
 
@@ -990,7 +991,7 @@
         </div>
 
         <div class="form-face form-back">
-          <div class="form-paper confirmation-paper">
+          <div class="form-paper">
             <div class="notebook-holes">
               <div class="hole"></div>
               <div class="hole"></div>
@@ -1068,7 +1069,10 @@
 
     openMenuBtn.addEventListener('click', openMenu);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    // Also listen for pointerdown: iOS Safari doesn't reliably fire 'click'
+    // from taps on a plain div with no native interactive semantics.
     menuBackdrop.addEventListener('click', closeMenu);
+    menuBackdrop.addEventListener('pointerdown', closeMenu);
 
     const video = document.getElementById('scrollVideo');
     let ticking = false;
