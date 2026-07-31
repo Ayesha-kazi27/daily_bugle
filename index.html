@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daily Bugle Tech Bootcamp</title>
+  <title>Daily Bugle Tech Expo</title>
   <link rel="icon" type="image/svg+xml" href="./gdg.svg" />
 
   <!-- Google Fonts: Orbitron & Courier Prime -->
@@ -51,6 +51,27 @@
       z-index: -2;
       opacity: 0.35;
       pointer-events: none;
+    }
+
+    .bg-image {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      background-color: #0d0b14;
+      z-index: -2;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Mobile: swap the scroll-scrubbed video for a static, zoomed-out image
+       (object-fit: contain shows the whole image instead of cropping it) */
+    @media (max-width: 600px) {
+      .bg-video { display: none; }
+      .bg-image { display: block; }
     }
 
     .bg-overlay {
@@ -218,7 +239,7 @@
     }
 
     .lol {
-      color: #8C1007;
+      color: #FF3B30;
       font-size: clamp(0.85rem, 2.5vw, 1.1rem);
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -750,18 +771,20 @@
     }
 
     .lol-label {
-      color: #8C1007;
+      color: #FF3B30;
       font-weight: 700;
       text-transform: uppercase;
+      text-shadow: 0 0 6px rgba(255, 59, 48, 0.35);
     }
 
     .footer-quote {
-      color: #8C1007;
+      color: #FF3B30;
       font-size: clamp(0.85rem, 2.2vw, 1rem);
       font-weight: 700;
       margin-top: 0.2rem;
       max-width: 650px;
       line-height: 1.4;
+      text-shadow: 0 0 6px rgba(255, 59, 48, 0.35);
     }
     /* --- SIDE MENU --- */
     .side-menu {
@@ -898,11 +921,13 @@
 </head>
 <body id="top">
 
-  <!-- BACKGROUND VIDEO -->
+  <!-- BACKGROUND VIDEO (desktop/tablet) -->
   <video class="bg-video" id="scrollVideo" muted playsinline preload="auto">
     <source src="./lol5.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+  <!-- BACKGROUND IMAGE (mobile fallback, shown via CSS media query) -->
+  <img class="bg-image" src="./pic.png" alt="" />
   <div class="bg-overlay"></div>
 
   <!-- NAVBAR (STICKY / ALWAYS VISIBLE) -->
@@ -947,7 +972,7 @@
             </div>
 
             <form class="form-content" id="registerForm">
-              <h3 class="form-title">Register Bugle Portal</h3>
+              <h3 class="form-title">Login Bugle Portal</h3>
 
               <div class="form-group">
                 <label for="fullName">Team Name</label>
