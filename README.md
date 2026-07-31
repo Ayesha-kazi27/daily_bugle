@@ -1,85 +1,115 @@
-# 🗞️ Daily Bugle Tech Bootcamp
+# Daily Bugle Tech Bootcamp — Landing Page
 
-A Spider-Man-themed, interactive landing page and registration portal built for the **Daily Bugle Tech Bootcamp**, organized by **Google Developer Group (GDG), Pillai College of Engineering**.
+A single-file, self-contained landing page for a Google Developer Group tech bootcamp, themed around the Daily Bugle / Spider‑Man universe. Built with vanilla HTML/CSS, a small amount of vanilla JS, and one React island (loaded via CDN + in-browser Babel) for the stage carousel.
 
-This project features a comic-book vintage aesthetic combined with modern futuristic web design elements—including glitch typography, notebook paper cards with halftone textures, scroll-driven video backgrounds, interactive React components, and custom visual effects.
-
----
-
-## ✨ Features
-
-- **🕸️ Spider-Man / Daily Bugle Aesthetic:** Custom-styled torn paper cards, notebook hole cutouts, halftone comic-print textures, and crimson/cream color schemes (`#660B05`, `#8C1007`, `#FFF0C4`).
-- **📱 Responsive Layout & Mobile Optimization:** Smooth fluid layout using `clamp()`, media queries, touch-swipe support for carousels, and mobile-friendly performance tweaks.
-- **⚛️ Interactive React Stage Carousel:** In-browser standalone React 18 component (using Babel Standalone) displaying boot camp stages with touch gesture support, dot indicators, and keyboard navigation (`ArrowLeft` / `ArrowRight`).
-- **📝 Dynamic Registration Form with Ink Stamp Flip:** Interactive registration form that flips to a confirmation slip featuring an animated rubber-stamp ink effect upon submission.
-- **🎬 Scroll-Driven Video Sync:** Background video (`lol5.mp4`) frame-scrubbed in sync with page scroll position (automatically disabled on mobile for performance).
-- **💥 Visual & Motion Effects:**
-  - Dynamic glitch text animations (`DAILY BUGLE TECH BOOTCAMP`).
-  - Typewriter text effect for subtitle quote.
-  - Multi-colored click spark particle burst on user interaction.
-  - IntersectionObserver-powered scroll reveal animations.
-- **🧭 Side Drawer Navigation:** Animated slide-out menu with web-shooter icon close trigger and backdrop overlay.
+No build step, no bundler, no `npm install` — just open `index.html` in a browser.
 
 ---
 
-## 📚 Curriculum Stages
+## Quick start
 
-| Stage | Title | Core Focus | Key Topics |
-| :--- | :--- | :--- | :--- |
-| **00** | **Overview** | Program Structure | Overall introduction to the Spider-Man Tech Bootcamp. |
-| **01** | **Homecoming** | Algorithmic Logic & Engineering | Data structures, Big-O complexity, logic pipelines, timed coding puzzles. |
-| **02** | **Far From Home** | Modern Web Engineering & UI | React architecture, CSS Grid/Flexbox, responsive UI systems, API integration. |
-| **03** | **No Way Home** | Advanced Optimization & Debugging | Memory leak detection, database indexing, performance profiling, fault tolerance. |
-| **04** | **Brand New Day** | Technical Leadership & Pitching | Live product demos, technical presentation skills, hackathon leadership. |
-
----
-
-## 🛠️ Tech Stack & Dependencies
-
-- **HTML5 & CSS3:** Custom keyframe animations, CSS clip-paths, CSS variables, and layout systems.
-- **JavaScript (ES6+):** Vanilla JS for DOM interaction, video scrub control, custom events, and particle effects.
-- **React 18 & ReactDOM 18:** Standalone UMD distribution for UI state management.
-- **Babel Standalone:** In-browser JSX compilation.
-- **Google Fonts:**
-  - [Orbitron](https://fonts.google.com/specimen/Orbitron) (Sci-fi / Futuristic typography)
-  - [Courier Prime](https://fonts.google.com/specimen/Courier+Prime) (Monospace typewriter typography)
+1. Place these three asset files in the **same folder** as `index.html`:
+   - `gdg.svg` — GDG logo (used in the navbar, favicon, and footer)
+   - `lol5.mp4` — background video (scroll‑scrubbed on desktop, disabled on mobile for performance)
+   - `web_white close.png` — close icon for the side menu
+2. Open `index.html` directly in a browser, or serve the folder with any static file server:
+   ```bash
+   npx serve .
+   # or
+   python3 -m http.server
+   ```
+3. That's it — everything else (fonts, React, Babel) loads from CDNs at runtime, so an internet connection is required.
 
 ---
 
-## 📁 Required Assets
+## What's on the page
 
-To run the project locally with full visual and media fidelity, ensure the following media files are located in the root directory alongside `index.html`:
-
-| Asset File | Type | Description |
-| :--- | :--- | :--- |
-| `gdg.svg` | SVG Image | Google Developer Group branding logo / favicon |
-| `lol5.mp4` | MP4 Video | Background video for scroll-driven scrubbing |
-| `web_white close.png` | PNG Image | Web-shooter icon button used in the side navigation drawer |
+- **Sticky glass navbar** with the GDG logo and a slide‑out side menu (Home / About / Stages / Login), all reachable by keyboard and mouse.
+- **Scroll‑scrubbed hero video** behind a glitching "DAILY BUGLE / TECH BOOTCAMP" headline (video scrubbing is skipped on small screens to avoid jank).
+- **Typewriter‑animated subtitle** that types itself out on page load.
+- **Stage carousel** — a React component showing five "torn notebook paper" cards (Bootcamp Overview + Stages 1–4). Supports:
+  - Prev/Next buttons
+  - Numbered dot navigation (doubles as a stage progress indicator)
+  - Swipe on touch devices
+  - Arrow‑key navigation when focused
+  - An `aria-live` region announcing the active slide for screen readers
+- **Halftone comic‑print texture** overlaid on every notebook/paper card for a newsprint look.
+- **Flip‑card registration form** — submitting the form flips the torn paper over (pure CSS 3D transform, no library) to reveal a confirmation slip with an animated ink "APPROVED" stamp and a personalized message using the entered team name. A "Register Another Team" button flips it back and resets the form.
+- **Scroll‑triggered reveal** — the login card and footer fade/slide into view the first time they enter the viewport (`IntersectionObserver`).
+- **Click sparks** — a small burst of particles fires from the cursor on every click, purely decorative.
+- **Reduced‑motion support** — the typewriter, click sparks, and scroll reveals are all skipped/simplified if the OS‑level "reduce motion" setting is on.
+- **Responsive down to small phones** — breakpoints at 900px / 600px / 380px cover tablets, phones, and small phones; the sticky navbar, carousel, and forms all resize accordingly.
 
 ---
 
-## 🚀 Getting Started
+## File structure
 
-Since the application uses CDN links for React, Babel, and Google Fonts, no build tools (`npm`, `webpack`, `vite`) are strictly required. You can serve it using any simple static HTTP server.
+Everything lives in one file:
 
-### Option 1: Live Server (VS Code)
-1. Open the project folder in **Visual Studio Code**.
-2. Install the **Live Server** extension.
-3. Right-click `index.html` and select **Open with Live Server**.
-
-### Option 2: Python HTTP Server
-Run the following command in your terminal from the project root:
-
-```bash
-# Python 3
-python -m http.server 8000
 ```
-Then open `http://localhost:8000` in your browser.
+index.html
+├── <head>
+│   ├── Google Fonts (Orbitron, Courier Prime)
+│   ├── React 18 + ReactDOM (CDN, development build)
+│   ├── Babel Standalone (compiles the inline JSX at runtime)
+│   └── <style> — all CSS, organized in commented sections
+├── <body>
+│   ├── Background video + overlay
+│   ├── Navbar
+│   ├── Hero (glitch text)
+│   ├── Content wrapper
+│   │   ├── #stack-carousel-root  ← React mounts the carousel here
+│   │   ├── Flip‑card registration form
+│   │   └── Footer details
+│   ├── Side menu + backdrop
+│   ├── <script> — vanilla JS (menu, video scrub, typewriter, reveal,
+│   │   click sparks, form flip/stamp logic)
+│   └── <script type="text/babel"> — the React carousel component
+```
 
 ---
 
-## 👤 Credits & Acknowledgments
+## Tech stack
 
-- **Organized By:** Google Developer Group (GDG), Pillai College of Engineering [cite: 1]
-- **Developed By:** Peter Parker (Ayesha Kazi) [cite: 1]
-- **Event:** Daily Bugle Expo [cite: 1]
+| Piece | Choice | Why |
+|---|---|---|
+| Markup/styling | Plain HTML + CSS | No build step needed |
+| Carousel | React 18 (CDN) + Babel Standalone | Only the carousel needed component state; kept isolated to one mount point rather than converting the whole page |
+| Everything else | Vanilla JS | Menu toggle, video scrub, typewriter, scroll reveal, click sparks, and the form flip don't need a framework |
+| Fonts | Orbitron (display), Courier Prime (loaded, currently unused — available if you want a typewriter‑style body font) | |
+
+> Note: an earlier version used Framer Motion for a drag‑based "stack" carousel. It was replaced with a plain button/dot/swipe carousel because drag gestures conflicted with page scrolling on touch devices. Framer Motion is no longer loaded.
+
+---
+
+## Customizing content
+
+- **Carousel slides**: edit the `cardsContent` array inside `function CarouselApp()` (near the bottom `<script type="text/babel">` block). Each slide is a `<NotebookCard title="...">...</NotebookCard>`.
+- **Ticker / announcements**: (removed in the current version — see below if you want it back.)
+- **Ticker headlines** *(if re‑added)*: were plain `<span class="ticker-item">` elements, duplicated once in the DOM for a seamless CSS scroll loop.
+- **Registration form fields**: edit the `<form id="registerForm">` markup; the submit handler reads `#fullName` by ID, so keep that ID if you add more fields.
+- **Confirmation message**: edit the fallback string in the `registerForm.addEventListener('submit', ...)` handler in the vanilla `<script>` block.
+- **Colors**: the palette is driven by a handful of hex values reused throughout (`#0d0b14` background, `#FFF0C4` cream, `#8C1007` / `#660B05` red accents). Search and replace to re‑theme.
+
+---
+
+## Browser support notes
+
+- Requires a browser with CSS `clip-path`, `backdrop-filter`, and CSS Grid support (all modern evergreen browsers).
+- `backdrop-filter` is prefixed with `-webkit-backdrop-filter` for Safari.
+- The flip‑card confirmation uses `backface-visibility` + 3D `transform`s — supported in all current major browsers.
+- No polyfills are included; this targets modern browsers only, not IE11.
+
+---
+
+## Known limitations
+
+- All copy (bootcamp description, stage details, footer credits) is hardcoded in the HTML/JSX — there's no CMS or data file.
+- The registration form has no backend; submitting it only triggers the front-end flip/confirmation animation, no data is actually sent anywhere.
+- The background video file (`lol5.mp4`) is not included — you must supply your own.
+
+---
+
+## Credits
+
+Organized by Google Developer Group, Pillai College of Engineering.
