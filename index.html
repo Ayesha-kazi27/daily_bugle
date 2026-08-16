@@ -154,6 +154,66 @@
       text-shadow: 0 0 8px #8C1007;
     }
 
+    /* --- SPIDEY-EYES MENU BUTTON --- */
+    .spidey-eyes-btn {
+      background: transparent;
+      border: none;
+      padding: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .spidey-eyes-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.85;
+    }
+
+    .spidey-eyes-btn:active {
+      transform: translateY(0) scale(0.94);
+    }
+
+    .spidey-eyes-btn:focus-visible {
+      outline: 2px solid #FFF0C4;
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .spidey-eyes-svg {
+      width: 34px;
+      height: 20px;
+      display: block;
+      overflow: visible;
+    }
+
+    .spidey-eye-shape {
+      fill: #FFF0C4;
+      filter: drop-shadow(0 0 4px rgba(255, 240, 196, 0.55));
+    }
+
+    /* Inner wrapper handles the blink (CSS transform) so it never conflicts
+       with the outer group's SVG-attribute transform used for mirroring. */
+    .spidey-eye-blink-wrap {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes spidey-blink {
+      0%, 100% { transform: scaleY(1); }
+      45%, 55% { transform: scaleY(0.06); }
+    }
+
+    .spidey-eye-blink-wrap.blinking {
+      animation: spidey-blink 0.4s ease;
+    }
+
+    @media (max-width: 600px) {
+      .spidey-eyes-btn { padding: 0.25rem; }
+      .spidey-eyes-svg { width: 28px; height: 17px; }
+    }
+
     /* --- HERO SECTION & GLITCH TEXT --- */
     .hero-container {
       width: 100%;
@@ -940,7 +1000,22 @@
 
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a id="openMenuBtn">Menu</a></li>
+        <li>
+          <button type="button" id="openMenuBtn" class="spidey-eyes-btn" aria-label="Open menu">
+            <svg class="spidey-eyes-svg" viewBox="0 0 130 78" aria-hidden="true" focusable="false">
+              <g transform="translate(4,2) scale(0.55)">
+                <g class="spidey-eye-blink-wrap left">
+                  <path class="spidey-eye-shape" d="M3.70,0.00 L22.20,9.20 C29.60,13.68 41.43,21.77 48.10,26.90 C54.77,32.03 57.50,34.87 62.20,40.00 C66.90,45.13 71.12,49.62 76.30,57.70 C81.48,65.78 89.47,80.42 93.30,88.50 C97.13,96.58 98.68,102.10 99.30,106.20 C99.92,110.30 98.73,110.42 97.00,113.10 C95.27,115.78 92.97,119.62 88.90,122.30 C84.83,124.98 78.28,128.17 72.60,129.20 C66.92,130.23 61.10,130.28 54.80,128.50 C48.50,126.72 40.48,122.73 34.80,118.50 C29.12,114.27 25.02,109.38 20.70,103.10 C16.38,96.82 12.23,89.27 8.90,80.80 C5.57,72.33 2.18,62.82 0.70,52.30 C-0.78,41.78 -0.50,26.42 0.00,17.70 L3.70,0.00 Z" />
+                </g>
+              </g>
+              <g transform="translate(126,2) scale(-0.55,0.55)">
+                <g class="spidey-eye-blink-wrap right">
+                  <path class="spidey-eye-shape" d="M3.70,0.00 L22.20,9.20 C29.60,13.68 41.43,21.77 48.10,26.90 C54.77,32.03 57.50,34.87 62.20,40.00 C66.90,45.13 71.12,49.62 76.30,57.70 C81.48,65.78 89.47,80.42 93.30,88.50 C97.13,96.58 98.68,102.10 99.30,106.20 C99.92,110.30 98.73,110.42 97.00,113.10 C95.27,115.78 92.97,119.62 88.90,122.30 C84.83,124.98 78.28,128.17 72.60,129.20 C66.92,130.23 61.10,130.28 54.80,128.50 C48.50,126.72 40.48,122.73 34.80,118.50 C29.12,114.27 25.02,109.38 20.70,103.10 C16.38,96.82 12.23,89.27 8.90,80.80 C5.57,72.33 2.18,62.82 0.70,52.30 C-0.78,41.78 -0.50,26.42 0.00,17.70 L3.70,0.00 Z" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
@@ -1060,11 +1135,24 @@
     function openMenu() {
       sideMenu.classList.add('open');
       menuBackdrop.classList.add('open');
+      blinkSpideyEyes();
     }
 
     function closeMenu() {
       sideMenu.classList.remove('open');
       menuBackdrop.classList.remove('open');
+    }
+
+    // Restart the blink animation every time (removing then re-adding the
+    // class with a reflow in between, since re-adding the same class alone
+    // won't restart a CSS animation already in its finished state).
+    function blinkSpideyEyes() {
+      const eyes = document.querySelectorAll('.spidey-eye-blink-wrap');
+      eyes.forEach((eye) => {
+        eye.classList.remove('blinking');
+        void eye.offsetWidth;
+        eye.classList.add('blinking');
+      });
     }
 
     openMenuBtn.addEventListener('click', openMenu);
@@ -1085,11 +1173,32 @@
       video.removeAttribute('preload');
     }
 
-    function updateVideoTime() {
+    // Surface video load failures instead of failing silently — the most
+    // common cause is lol5.mp4 missing or not sitting next to index.html.
+    video.addEventListener('error', () => {
+      console.warn(
+        'Background video failed to load. Check that lol5.mp4 exists in the ' +
+        'same folder as this HTML file and that the path "./lol5.mp4" is correct.'
+      );
+    });
+
+    // Cap how often we actually seek the video on scroll. Seeking on every
+    // scroll-driven animation frame (~60fps) makes the browser decode far
+    // more frames than needed for a background element; capping to a lower
+    // rate cuts CPU/GPU load with no visible difference for a blurred,
+    // low-opacity background video.
+    const VIDEO_TARGET_FPS = 15;
+    const VIDEO_FRAME_INTERVAL = 1000 / VIDEO_TARGET_FPS;
+    let lastVideoUpdate = 0;
+
+    function updateVideoTime(timestamp) {
       if (video.duration && !isSmallScreen) {
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollFraction = Math.max(0, Math.min(1, window.scrollY / maxScroll));
-        video.currentTime = scrollFraction * video.duration;
+        if (!lastVideoUpdate || (timestamp || 0) - lastVideoUpdate >= VIDEO_FRAME_INTERVAL) {
+          lastVideoUpdate = timestamp || 0;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollFraction = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+          video.currentTime = scrollFraction * video.duration;
+        }
       }
       ticking = false;
     }
@@ -1101,7 +1210,13 @@
       }
     });
 
-    video.addEventListener('loadedmetadata', updateVideoTime);
+    video.addEventListener('loadedmetadata', () => updateVideoTime());
+    // If metadata already loaded (e.g. cached video) before this script ran,
+    // the 'loadedmetadata' event already fired and this listener would never
+    // see it. Cover that case with an immediate check.
+    if (video.readyState >= 1) {
+      updateVideoTime();
+    }
 
     // --- REDUCED MOTION CHECK (shared) ---
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
